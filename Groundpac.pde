@@ -1,16 +1,16 @@
  Point[] Maze;
  int x,y; 
- int scale =10;
+ int scale =25;
  Actor player;
- ArrayList ghosts = new ArrayList(); 
+ ArrayList<Actor> ghosts = new ArrayList<Actor>(); 
  int Counter;
  void setup(){
   
-   size(500,500);
+   size(1000,800);
   frameRate(7);
   
-  x=500/scale;
-  y=500/scale;
+  x=width/scale;
+  y=height/scale;
   Maze = new Point[x*y];
   
   background(0);
@@ -28,20 +28,28 @@
  void draw(){
    background(0);
    player.move();
+   for(int i=0;i<ghosts.size();i++)
+  {
+    Actor tmp=ghosts.get(i);
+    tmp.move();
+    tmp.display();
+  }
  for(int i=0;i<y;i++){
     for(int j=0;j<x;j++){
      Maze[(i*x)+j].display();
     }
     player.display();
   }
+  
    Counter ++;
  if(player.isFinished) levelUp();
 
  }
  
  void levelUp(){
- ghosts.add(new Ghost(player.xHistory,player.yHistory));
+ ghosts.add(new Ghost(player.History));
  Counter=0;
+ player = new Player();
  }
  
  enum Dir{ U,D, L, R}
@@ -56,4 +64,11 @@
     }  else if (keyCode == LEFT) {
       player.dir= Dir.L;
     }    
+ }
+ 
+ void gameOver(){
+   textSize(50);
+   fill(255);
+   text("You are a Loser",width/2 -100,height/2);
+   noLoop();
  }

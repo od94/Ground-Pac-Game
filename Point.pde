@@ -20,7 +20,7 @@ class Point{
        rect(pX*scale,pY*scale,scale,scale);
      }
      else if(isExit){
-       fill(170,0,255);
+       fill(245);
        rect(pX*scale,pY*scale,scale,scale);
      }
    }
